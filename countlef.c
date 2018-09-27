@@ -1,0 +1,49 @@
+#include <stdio.h>
+#include<conio.h>
+#include <stdlib.h>
+ 
+
+struct node 
+{
+    int data;
+    struct node* left;
+    struct node* right;
+};
+ 
+
+int getLeafCount(struct node* node)
+{
+  if(node == NULL)       
+    return 0;
+  if(node->left == NULL && node->right==NULL)      
+    return 1;            
+  else
+    return getLeafCount(node->left)+
+           getLeafCount(node->right);      
+}
+ 
+struct node* newNode(int data) 
+{
+  struct node* node = (struct node*)
+                       malloc(sizeof(struct node));
+  node->data = data;
+  node->left = NULL;
+  node->right = NULL;
+   
+  return(node);
+}
+int main()
+{
+  /*create a tree*/ 
+  struct node *root = newNode(1);
+  root->left        = newNode(2);
+  root->right       = newNode(3);
+  root->left->left  = newNode(4);
+  root->left->right = newNode(5);    
+   
+  /*get leaf count of the above created tree*/
+  printf("Leaf count of the tree is %d", getLeafCount(root));
+   
+  getch();
+  return 0;
+}
